@@ -394,7 +394,14 @@ enc_double(Encoder* e, double val)
     }
 
     start = &(e->p[e->i]);
+    if(!fmt_double(val, start)) {
+        return 0;
+    }
 
+    e->i += strlen(start);
+    e->count++;
+    return 1;
+/*
     //snprintf(&(e->p[e->i]), 31, "%0.20g", val);
     sprintf(start, "%0.20g", val);
     len = strlen(start);
@@ -414,6 +421,7 @@ done:
     e->i += len;
     e->count++;
     return 1;
+*/
 }
 
 static inline int

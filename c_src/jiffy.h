@@ -32,6 +32,7 @@ ERL_NIF_TERM encode(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 
 int int_from_hex(const unsigned char* p);
 int int_to_hex(int val, char* p);
+int fmt_double(double v, char* p);
 int utf8_len(int c);
 int utf8_esc_len(int c);
 int utf8_validate(unsigned char* data, size_t size);
