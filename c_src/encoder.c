@@ -240,7 +240,7 @@ enc_string(Encoder* e, ERL_NIF_TERM val)
         data = bin.data;
         size = bin.size;
     } else if(enif_is_atom(e->env, val)) {
-        if(!enif_get_atom(e->env, val, atom, 512, ERL_NIF_LATIN1)) {
+        if(!enif_get_atom(e->env, val, atom, sizeof atom, ERL_NIF_LATIN1)) {
             return 0;
         }
         data = (unsigned char*) atom;
