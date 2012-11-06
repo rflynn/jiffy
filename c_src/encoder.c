@@ -9,6 +9,7 @@
 #include "jiffy.h"
 
 #define BIN_INC_SIZE 2048
+#define LONG_BUFLEN 32
 
 #define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
 
@@ -370,16 +371,16 @@ enc_string(Encoder* e, ERL_NIF_TERM val)
 static inline int
 enc_long(Encoder* e, ErlNifSInt64 val)
 {
-    if(!enc_ensure(e, 32)) {
+    if(!enc_ensure(e, LONG_BUFLEN)) {
         return 0;
     }
 
 #if (defined(__WIN32__) || defined(_WIN32) || defined(_WIN32_))
-    snprintf(&(e->p[e->i]), 32, "%ld", val);
+    snprintf(&(e->p[e->i]), LONG_BUFLEN, "%ld", val);
 #elif SIZEOF_LONG == 8
-    snprintf(&(e->p[e->i]), 32, "%ld", val);
+    snprintf(&(e->p[e->i]), LONG_BUFLEN, "%ld", val);
 #else
-    snprintf(&(e->p[e->i]), 32, "%lld", val);
+    snprintf(&(e->p[e->i]), LONG_BUFLEN, "%lld", val);
 #endif
 
     e->i += strlen(&(e->p[e->i]));
